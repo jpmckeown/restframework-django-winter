@@ -15,6 +15,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Create secrets.env
+        run: |
+          cat <<EOF > secrets.env
+          DB_PASS=${{ secrets.DB_PASS }}
+          POSTGRES_PASSWORD=${{ secrets.DB_PASS }}
+          EOF
       - name: Test
         run: docker compose run --rm app sh -c "python manage.py test"
       - name: Lint
