@@ -17,8 +17,11 @@ class Command(BaseCommand):
             try:
                 self.check(databases=['default'])
                 db_up = True
-            except (PsycopgOpError, OperationalError):
-                self.stdout.write('Database unavailable, waiting 1 second...')
+            except PsycopgOpError:
+                self.stdout.write('Postgres not yet launched, waiting 1 second...')
+                time.sleep(1)
+            except OperationalError:
+                self.stdout.write('Database is unavailable, waiting 1 second...')
                 time.sleep(1)
 
         self.stdout.write(self.style.SUCCESS('Database now available!'))
