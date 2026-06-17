@@ -22,9 +22,18 @@ class ModelTests(TestCase):
             ['Test2A@example.COM', 'Test2A@example.com'],
         ]
         for email, expected in sample_emails:
-            user = get_user_model().objects.create_user(email, 'sample123')
+            user = get_user_model().objects.create_user(email, 'samplepassword123')
             self.assertEqual(user.email, expected)
 
     def test_new_user_lacking_email_raises_error(self):
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user('', 'test123')
+            get_user_model().objects.create_user('', 'testpassword123')
+
+    def test_create_superuser(self):
+        user = get_user_model().objects.create_superuser(
+            'test@example.com',
+            'testpassword789',
+        )
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+
