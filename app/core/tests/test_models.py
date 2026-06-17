@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 
 class ModelTests(TestCase):
-    def test_make_user_works(self):
+    def test_make_user_with_email(self):
         email = 'test@example.com'
         password = 'testpass123'
         user = get_user_model().objects.create_user(
