@@ -7,7 +7,6 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
-
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         user = self.model(email=email, **extra_fields)
@@ -16,11 +15,12 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
