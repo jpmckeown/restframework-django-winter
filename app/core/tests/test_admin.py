@@ -14,7 +14,9 @@ class AdminSiteTests(TestCase):
         self.client.force_login(self.admin_user)
 
         self.user = get_user_model().objects.create_user(
-            email='admin@example.com', password='testpass123', name='Ordinary Test User'
+            email='ordinary@example.com',
+            password='testpass123',
+            name='Ordinary Test User',
         )
 
     def test_users_list(self):
@@ -23,3 +25,5 @@ class AdminSiteTests(TestCase):
 
         self.assertContains(res, self.user.name)
         self.assertContains(res, self.user.email)
+
+        # print(res.content.decode())
