@@ -18,4 +18,6 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # should be in other urls.py not in root app'sL
+    # path('api/', include('app'))
 ]
